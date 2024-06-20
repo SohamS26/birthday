@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wish Card</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .front {
+            background: linear-gradient(135deg, #ff85a2 25%, transparent 25%) -50px 0/ 100px 100px,
+                        linear-gradient(225deg, #ff85a2 25%, transparent 25%) -50px 0/ 100px 100px,
+                        linear-gradient(315deg, #ff85a2 25%, transparent 25%),
+                        linear-gradient(45deg, #ff85a2 25%, transparent 25%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2rem;
+            transform: rotateY(0deg);
+            animation: gradientBackground 5s ease infinite;
+        }
+
+        @keyframes gradientBackground {
+            0% { background-position: 0 0; }
+            50% { background-position: 100px 100px; }
+            100% { background-position: 0 0; }
+        }
+
+        .back {
+            background-color: #fff;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .happy-birthday {
+            position: relative;
+            text-align: center;
+            animation: textAppear 1.5s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        .happy-birthday h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #391e27;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin: 0;
+        }
+
+        @keyframes textAppear {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .cake {
+            width: 150px;
+            height: 150px;
+            background: url('https://via.placeholder.com/150') no-repeat center center;
+            background-size: contain;
+            animation: float 2s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .row.no-gutters {
+            margin: 0;
+        }
+
+        .card-img {
+            border-radius: 0 10px 10px 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+        .card-title {
+            font-size: 2rem;
+            color: #ff4081;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 30px;
+            background: #ff4081;
+            top: -10px;
+            animation: fall 4s infinite ease-in;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0); opacity: 1; }
+            100% { transform: translateY(350px) rotate(720deg); opacity: 0; }
+        }
+
+        .card-container:hover .card {
+            transform: rotateY(180deg);
+        }
+
+        .cake-animation {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .cake-animation img {
+            width: 150px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="front">
+                <div class="happy-birthday">
+                    <div class="cake-animation">
+                        <img src="download.jpeg" alt="Birthday Cake">
+                    </div>
+                    <h1>Happy Birthday!</h1>
+                </div>
+            </div>
+            <div class="back">
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <img src="WhatsApp Image 2024-06-20 at 21.50.28_89bb913b.jpg" class="card-img" alt="Birthday Photo">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h4 class="card-title">Happy Birthday Dumbo Cute Panda</h4>
+                            <p class="card-text">Wishing you a day filled with love, joy, and happiness. May all your dreams come true!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cardBody = document.querySelector('.card-body');
+        for (let i = 0; i < 30; i++) {
+            let confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.backgroundColor = getRandomColor();
+            cardBody.appendChild(confetti);
+        }
+
+        function getRandomColor() {
+            const colors = ['#ff4081', '#ffc107', '#03a9f4', '#4caf50', '#9c27b0'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
+</body>
+</html>
